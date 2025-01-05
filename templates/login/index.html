@@ -1,0 +1,82 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar</title>
+    <!-- Custom fonts for this template-->
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+
+</head>
+
+
+<body class="bg-custom-pattern">
+
+<div class="flex justify-center items-center min-h-screen">
+
+    <section class="flex flex-col justify-center items-center space-y-2">
+        <div class="bg-pink-100 w-full rounded-full py-3">
+            <p class="text-2xl text-gray-900 dark:text-white text-center">Poemario</p>
+        </div>
+
+        <div class="w-96 bg-pink-100 p-4 rounded">
+
+
+            <form class="max-w-sm mx-auto px-3" method="POST">
+                {% csrf_token %}
+                <div class="mb-5">
+                    <label for="email"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
+                    {{ form.username }}
+                </div>
+                <div class="mb-5">
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                    {{ form.password }}
+                </div>
+                <div class="mb-5">
+                    <div class="col-md-10 offset-md-1">
+                        <div class="form-group">
+                            <!-- Add a Remember me functionality -->
+                            {{ form.remember_me }}
+                            <label> Remember me</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit"
+                        class=" text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800">
+                    Entrar
+                </button>
+
+            </form>
+
+        </div>
+        {% if form.errors %}
+            <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                 role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
+                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                </svg>
+                <span class="sr-only">Error</span>
+                <div>
+
+                    <ul class="mt-1.5 list-disc list-inside">
+                        {% for key, value in form.errors.items %}
+                            <li>{{ value }}</li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
+
+    </section>
+</div>
+
+
+</body>
+</html>

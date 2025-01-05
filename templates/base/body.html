@@ -1,0 +1,29 @@
+{% extends 'base/head.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <body id="" class="fondo">
+    {% include 'base/navar.html' %}
+    {% block alert %}
+    {% endblock %}
+    <main class="container mx-auto min-h-screen">
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+
+    {% include 'base/footer.html' %}
+    {% include 'base/js.html' %}
+    {% block js %}
+    {% endblock %}
+    </body>
+
+{% endblock %}
+

@@ -1,0 +1,35 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es" data-theme="valentine">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{ titulo }}</title>
+    {% include 'django_quill/media.html' %}
+    <!-- Custom fonts for this template-->
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+    {% block head %}
+    {% endblock %}
+    <style>
+        .fondo {
+            background-color: #FAE7F4;
+            background: radial-gradient(circle, transparent 20%, #FAE7F4 20%, #FAE7F4 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #FAE7F4 20%, #FAE7F4 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#e0b0d7 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #e0b0d7 2px, #FAE7F4 2px) -1px 0;
+            background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+        }
+    </style>
+</head>
+
+{% block body %}
+{% endblock %}
+
+</html>

@@ -1,0 +1,63 @@
+{% if poemas %}
+    {% for poema in poemas %}
+        <div class="card bg-base-100 w-96 shadow-xl" id="idpoema-{{ poema.pk }}">
+            <figure>
+                <img
+                        class="max-h-72 w-96 object-cover bg-cover"
+                        src="{{ poema.imagen }}"
+                        alt="Carta Imagen"/>
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">{{ poema.titulo }}</h2>
+                <p class="font-serif" style="white-space: pre-wrap;" id="poematry-{{ poema.id }}"></p>
+                <script>
+                    let poemaContenido_{{ poema.id }} = JSON.parse('{{ poema.contenido|escapejs }}');
+                    console.log(poemaContenido_{{ poema.id }});
+                    const text_{{ poema.id }} = poemaContenido_{{ poema.id }}.ops.map(op => op.insert).join('');
+                    document.getElementById('poematry-{{ poema.id }}').textContent = text_{{ poema.id }};
+                </script>
+                <div class="card-actions justify-end">
+                    {{ poema.creado_en|date }}
+                </div>
+                <div class="card-actions justify-end">
+                    <a href="{% url 'blog:editar_poema' poema.id %}" class="btn btn-primary">Editar</a>
+                    <button class="btn btn-error"
+                            onclick="openDeleteModal({{ poema.pk }}, '{{ poema.titulo }}')">
+                        Eliminar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    {% endfor %}
+    <dialog id="delete-modal" class="modal">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold">Eliminar Poema</h3>
+            <p id="delete-modal-message" class="py-4"></p>
+            <div class="modal-action">
+                <button class="btn btn-error" id="confirm-delete-btn">Confirmar</button>
+                <button class="btn" onclick="closeDeleteModal()">Cancelar</button>
+            </div>
+        </div>
+    </dialog>
+{% else %}
+    <main class="flex flex-container justify-center items-center h-full">
+        <div class="card bg-neutral text-neutral-content w-96">
+            <div class="card-body items-center text-center">
+                <h2 class="card-title">Sin poemas!</h2>
+                <p>No Tienes ningun poema creado.</p>
+                <div class="card-actions justify-end">
+                    <a href="{% url 'blog:crear_poema' %}" class="btn btn-primary">Crear</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endif %}
+
+<script>
+
+</script>

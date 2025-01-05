@@ -1,0 +1,47 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BlogPoemario</title>
+    <!-- Custom fonts for this template-->
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+    <style>
+        .fondo {
+            background-color: #f7e6f7;
+            opacity: 0.8;
+            background: radial-gradient(circle, transparent 20%, #f7e6f7 20%, #f7e6f7 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #f7e6f7 20%, #f7e6f7 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#f745f5 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #f745f5 2px, #f7e6f7 2px) -1px 0;
+            background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+        }
+    </style>
+</head>
+<body class="fondo">
+
+<div class="flex justify-center items-center min-h-screen z-50">
+
+    <section class="flex flex-col justify-center items-center">
+        <h1 class="mb-4 font-serif text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            BlogPoemario</h1>
+        <p class="mb-6 text-lg font-normal  text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+            Poemario de rau y majito
+        </p>
+        <a href="{% url 'login' %}"
+           class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-pink-700 rounded-lg hover:bg-pink-800 focus:ring-4 focus:ring-pink-300 dark:focus:ring-pink-900">
+            iniciar
+            <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M1 5h12m0 0L9 1m4 4L9 9"></path>
+            </svg>
+        </a>
+    </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</body>
+</html>

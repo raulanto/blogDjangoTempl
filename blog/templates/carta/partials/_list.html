@@ -1,0 +1,46 @@
+
+
+{% if cartas %}
+    {% for carta in cartas %}
+        <div class="card card-compact bg-base-100 w-96 shadow-xl" id="carta-{{ carta.pk }}">
+            <figure>
+                <img
+                        class="max-h-72 w-96 object-cover bg-cover"
+                        src="{{ carta.imagen }}"
+                        alt="Carta Imagen"/>
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">{{ carta.titulo }}</h2>
+                <div class="card-actions justify-end">
+                    <a href="{% url 'blog:ver_carta' carta.id %}" class="btn btn-primary">Ver</a>
+                    <a class="btn btn-secondary" href="{% url 'blog:editar_carta' carta.id %}">Editar</a>
+                    <button class="btn btn-error"
+                            onclick="openDeleteModal({{ carta.id }}, '{{ carta.titulo }}')">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="card bg-neutral text-neutral-content w-96">
+        <div class="card-body items-center text-center">
+            <h2 class="card-title">Sin Cartas!</h2>
+            <p>No Tienes ningun Carta Creada.</p>
+            <div class="card-actions justify-end">
+                <a href="{% url 'blog:crear_carta' %}" class="btn btn-primary">Crear</a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<dialog id="delete-modal" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">Eliminar Carta</h3>
+        <p id="delete-modal-message" class="py-4"></p>
+        <div class="modal-action">
+            <button class="btn btn-error" id="confirm-delete-btn">Confirmar</button>
+            <button class="btn" onclick="closeDeleteModal()">Cancelar</button>
+        </div>
+    </div>
+</dialog>

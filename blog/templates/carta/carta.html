@@ -1,0 +1,89 @@
+{% extends 'base/body.html' %}
+{% load static %}
+
+{% block alert %}
+    {% if messages %}
+        {% for message in messages %}
+            <div id="alert-3"
+                 class="flex items-center p-4  text-green-800  bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                 role="alert">
+                <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                     fill="currentColor"
+                     viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                </svg>
+                <span class="sr-only">{{ message.tags }}</span>
+                <div class="ms-3 text-sm font-medium">
+                    {{ message }}
+                </div>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="max-w-screen-lg mx-auto bg-white p-8 h-fit">
+        <main class="mt-10">
+
+            <div class="mb-4 md:mb-0 w-full mx-auto relative">
+                <div class="px-4 lg:px-0">
+                    <h2 class="text-4xl font-semibold text-gray-800 leading-tight">
+                        {{ carta.titulo }}
+                    </h2>
+                    <a
+                            href="#"
+                            class="py-2  inline-flex items-center justify-center mb-2"
+                    >
+                        de {{ carta.autor }} para {{ carta.destinatario }}
+                    </a>
+                </div>
+
+                <img src="{{ carta.imagen }}" class="w-full object-cover lg:rounded" style="height: 28em;"/>
+            </div>
+
+            <div class="flex flex-col lg:flex-row lg:space-x-12">
+
+                <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4">
+                    <p style="white-space:pre-wrap;" id="content" class="pb-6 prose"></p>
+                    <div class="border-l-4 border-gray-500 pl-4 mb-6 italic rounded">
+                        {{ carta.posdata }}
+                    </div>
+                    <div class=" text-primary italic rounded">
+                        {{ carta.fecha_creacion }}
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm">
+                    <div class="  md:rounded">
+                        {{ carta.iframe|safe }}
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <!-- main ends here -->
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        // Escapar contenido para JavaScript para evitar problemas con caracteres especiales
+        const cartaContenido = JSON.parse('{{ carta.contenido|escapejs }}');
+        console.log(cartaContenido);
+
+        // Obtener el texto del Delta
+        const text = cartaContenido.ops.map(op => op.insert).join('');
+
+        // Pintar el contenido directamente
+        document.getElementById('content').textContent = text;
+
+    </script>
+
+{% endblock %}

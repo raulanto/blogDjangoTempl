@@ -1,0 +1,89 @@
+{% extends 'base/body.html' %}
+
+{% block content %}
+    <article class="my-4">
+        <section class="grid md:grid-cols-3 grid-rows-3 grid-cols-1  md:grid-rows-1 gap-2 px-2 md:px-0">
+            <div class="col-span-1">
+                <a href="{% url 'blog:crear_carta' %}"
+                   class="card bg-neutral text-neutral-content image-full w-full h-full shadow-xl hover:bg-pink-900">
+
+                    <div class="card-body">
+                        <h2 class="card-title">Crear Carta</h2>
+                        <p>Cartas creadas <samp class="badge badge-lg">{{ total_cartas }}</samp></p>
+
+                    </div>
+                </a>
+            </div>
+            <div class="col-span-1  md:col-start-2">
+                <div class="col-span-2">
+
+                    <a href="{% url 'blog:crear_poema' %}"
+                       class="card bg-neutral text-neutral-content image-full w-full h-full shadow-xl hover:bg-pink-900">
+
+                        <div class="card-body">
+                            <h2 class="card-title">Crear Poema</h2>
+                            <p>Poema creados <samp class="badge badge-lg">{{ total_poemas }}</samp></p>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-span-1 md:ol-start-3">
+                <div class="card bg-neutral text-neutral-content image-full w-full h-full shadow-xl hover:bg-pink-900">
+
+                    <div class="card-body">
+                        <h2 class="card-title">Crear Poema</h2>
+                        <p>Poema creados <samp class="badge badge-lg">{{ total_poemas }}</samp></p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="">
+            {% if poemas %}
+                <main class="flex flex-col justify-center items-center space-y-2 my-2">
+                    {% for poema in poemas %}
+                        <div class="card bg-base-100 w-96 shadow-xl" id="idpoema-{{ poema.pk }}">
+                            <figure>
+                                <img
+                                        class="max-h-72 w-96 object-cover bg-cover"
+                                        src="{{ poema.imagen }}"
+                                        alt="Carta Imagen"/>
+                            </figure>
+
+                            <div class="flex p-3 mx-4 mt-4  bg-base-100 shadow-lg rounded-lg">
+{#                                <div class="flex justify-center">#}
+{#                                    <img src="{{ poema.autor.profile.avatar.url }}"#}
+{#                                         class="rounded-full" alt="" width="50" height="50">#}
+{#                                </div>#}
+                                <div  class="btn-circle avatar">
+                                    <div class="w-12 rounded-full">
+                                        <img
+                                                alt="Tailwind CSS Navbar component"
+                                                src="{{ user.profile.avatar.url }}"/>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class=" font-medium leading-tight text-xl">{{ poema.autor }}</h3>
+                                    <p class=" text-base font-medium">{{ poema.creado_en|date }}</p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2 class="card-title">{{ poema.titulo }}</h2>
+                                <p class="font-serif" style="white-space: pre-wrap;" id="poema-{{ poema.id }}"></p>
+                                <script>
+                                    let poemaContenido_{{ poema.id }} = JSON.parse('{{ poema.contenido|escapejs }}');
+                                    console.log(poemaContenido_{{ poema.id }});
+                                    const text_{{ poema.id }} = poemaContenido_{{ poema.id }}.ops.map(op => op.insert).join('');
+                                    document.getElementById('poema-{{ poema.id }}').textContent = text_{{ poema.id }};
+                                </script>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </main>
+            {% else %}
+                No tienes poemas
+            {% endif %}
+        </section>
+    </article>
+{% endblock %}

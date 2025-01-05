@@ -1,0 +1,52 @@
+{% extends 'base/body.html' %}
+{% load static %}
+{% load compress %}
+{% block head %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <div class="space-y-2 ">
+
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>¡Hubo errores en el formulario!</strong>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="card bg-base-100 mt-4 shadow-xl w-full">
+            <div class="card-body">
+                <h2 class="card-title">{{ titulo }}</h2>
+                <form method="post" enctype="multipart/form-data"
+                >
+                    {% csrf_token %}
+
+                    {{ form }}
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-neutral" type="submit">Guardar</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base/body.html' %}
+
+{% block content %}
+
+
+
+    <main class="flex flex-col justify-center items-center my-4 space-y-2" id="cartas-container">
+        {% include 'carta/partials/_list.html' %}
+    </main>
+    <!-- Open the modal using ID.showModal() method -->
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        let selectedCartaId = null;
+
+        function openDeleteModal(cartaId, cartaTitulo) {
+            selectedCartaId = cartaId;
+            document.getElementById('delete-modal-message').textContent = `¿Estás seguro de que deseas eliminar la carta "${cartaTitulo}"?`;
+            document.getElementById('delete-modal').showModal();
+        }
+
+        function closeDeleteModal() {
+            selectedCartaId = null;
+            document.getElementById('delete-modal').close();
+        }
+
+        document.getElementById('confirm-delete-btn').addEventListener('click', function () {
+            if (selectedCartaId) {
+                fetch(`{% url 'blog:eliminar_carta_ajax' 0 %}`.replace('0', selectedCartaId), {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Reemplazar el contenido del contenedor con el HTML actualizado
+                            const container = document.querySelector('#cartas-container');
+                            container.innerHTML = data.html;
+
+                            // Cerrar el modal
+                            closeDeleteModal();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al eliminar la carta:', error);
+                    });
+            }
+        });
+
+    </script>
+{% endblock %}
