@@ -13,27 +13,34 @@
 </head>
 
 
-<body class="bg-custom-pattern">
+<body class="bg-custom-pattern max-w-screen">
 
-<div class="flex justify-center items-center min-h-screen">
+
+<div class="flex flex-col justify-center items-center min-h-screen">
 
     <section class="flex flex-col justify-center items-center space-y-2">
-        <div class="bg-pink-100 w-full rounded-full py-3">
-            <p class="text-2xl text-gray-900 dark:text-white text-center">Poemario</p>
+
+        <div class="card bg-base-100 w-96 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-center">Bienvenido!</h2>
+            </div>
         </div>
 
-        <div class="w-96 bg-pink-100 p-4 rounded">
 
-
-            <form class="max-w-sm mx-auto px-3" method="POST">
-                {% csrf_token %}
-                <div class="mb-5">
-                    <label for="email"
-                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
+        <form class="card bg-base-100 w-96 shadow-xl" method="POST">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Usuario</span>
+                    </label>
                     {{ form.username }}
                 </div>
-                <div class="mb-5">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Contraseña</span>
+                    </label>
                     {{ form.password }}
                 </div>
                 <div class="mb-5">
@@ -45,32 +52,38 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit"
-                        class=" text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800">
-                    Entrar
-                </button>
+                <div class="card-actions">
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Entrar
+                    </button>
 
-            </form>
-
-        </div>
-        {% if form.errors %}
-            <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                 role="alert">
-                <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
-                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
-                </svg>
-                <span class="sr-only">Error</span>
-                <div>
-
-                    <ul class="mt-1.5 list-disc list-inside">
-                        {% for key, value in form.errors.items %}
-                            <li>{{ value }}</li>
-                        {% endfor %}
-
-                    </ul>
                 </div>
             </div>
+
+
+        </form>
+
+        {% if form.errors %}
+            <section class="  mx-auto flex justify-center items-center w-full">
+                 {% for key, value in form.errors.items %}
+                <div role="alert" class="alert alert-error">
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 shrink-0 stroke-current"
+                            fill="none"
+                            viewBox="0 0 24 24">
+                        <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M10 14l2-2m0 0l2-2m-2
+                2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>{{ value }}</span>
+                </div>
+              {% endfor %}
+            </section>
         {% endif %}
 
 

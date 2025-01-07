@@ -1,6 +1,6 @@
 from .index import index
 from .login import CustomLoginView
-from .blog import BlogView
+from .blog import BlogView,BuzonView
 from .carta_view import CrearCartaView, ListaCartasView, VerCartaView, EliminarCartaAjaxView, EditarCartaView, \
     ObtenerCartaAjaxView
 from .perfil_view import PerfilView, profileEdit

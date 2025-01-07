@@ -2,7 +2,7 @@ from django.urls import path
 
 from blog.views import index, BlogView, CrearCartaView, ListaCartasView, VerCartaView, EliminarCartaAjaxView, \
     EditarCartaView, PerfilView, profileEdit, ListaPoemasView, CrearPoemaView, EliminarPoemaAjaxView, EditarPoemaView, \
-    ObtenerCartaAjaxView, ListaLineaTiemposView, CrearLineaTiempoView
+    ObtenerCartaAjaxView, ListaLineaTiemposView, CrearLineaTiempoView,BuzonView
 
 app_name = 'blog'
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('panel', BlogView.as_view(), name='panel'),
     path('carta/crear-carta/', CrearCartaView.as_view(), name='crear_carta'),
     path('cartas/', ListaCartasView.as_view(), name='lista_cartas'),
+    path('buzzon/', BuzonView.as_view(), name='buzzon'),
     path('cartas/<int:pk>/', VerCartaView.as_view(), name='ver_carta'),
     path('cartas/eliminar-ajax/<int:pk>/', EliminarCartaAjaxView.as_view(), name='eliminar_carta_ajax'),
     path('carta/editar-carta/<int:pk>/', EditarCartaView.as_view(), name='editar_carta'),

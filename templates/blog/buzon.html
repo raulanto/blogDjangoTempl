@@ -1,0 +1,34 @@
+{% extends 'base/body.html' %}
+
+
+{% block content %}
+    <section class="flex flex-col justify-center items-center my-4 space-y-2">
+        {% if cartas %}
+            {% for carta in cartas %}
+                <div class="card card-compact bg-base-100 w-96 shadow-xl" id="carta-{{ carta.pk }}">
+                    <figure>
+                        <img
+                                class="max-h-72 w-96 object-cover bg-cover"
+                                src="{{ carta.imagen }}"
+                                alt="Carta Imagen"/>
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ carta.titulo }}</h2>
+                        <div class="card-actions justify-end">
+                            <a href="{% url 'blog:ver_carta' carta.id %}" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="card bg-neutral text-neutral-content w-96">
+                <div class="card-body items-center text-center">
+                    <p>No Tienes ningun Carta.</p>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+
+
+
+{% endblock %}

@@ -40,11 +40,7 @@ class VerCartaView(LoginRequiredMixin, DetailView):
     template_name = 'carta/carta.html'
     context_object_name = 'carta'
 
-    def get_object(self, queryset=None):
-        carta = super().get_object(queryset)
-        if carta.autor != self.request.user:
-            raise Http404("No tienes permiso para ver esta carta.")
-        return carta
+
 
 
 # class EliminarCartaAjaxView(LoginRequiredMixin, View):
