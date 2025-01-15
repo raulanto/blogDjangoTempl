@@ -1,9 +1,20 @@
 {% extends 'base/body.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+        .fondo {
+            background-color: #F0D6E8;
+            opacity: 1;
+            background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #F0D6E8 19px), repeating-linear-gradient(#AF467055, #AF4670);
+        }
+    </style>
+{% endblock %}
+
 
 {% block body %}
     <!-- component -->
     {% include 'base/navar.html' %}
-    <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
     {% if messages %}
         {% for message in messages %}
             <div id="alert-3"
@@ -24,122 +35,139 @@
     {% endif %}
 
 
-    <main class="profile-page">
-        <section class="relative block h-500-px">
-            <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
-            background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80');
-          ">
-                <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
-            </div>
-            <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-                 style="transform: translateZ(0px)">
-                <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg"
-                     preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-                    <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
-                </svg>
-            </div>
-        </section>
-        <section class="relative py-16 ">
-            <div class="container mx-auto px-4">
-                <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
-                    <div class="px-6">
-                        <div class="flex flex-wrap justify-center">
-                            <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                                <div class="relative ">
-                                    <div class="avatar">
-                                        <div class="ring-primary  ring-offset-base-100 w-40 rounded-full ring ring-offset-2">
-                                            <img src="{{ user.profile.avatar.url }}"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    {#    <main class="profile-page">#}
+    {#        <section class="relative block h-500-px">#}
+    {#            <div class="absolute top-0 w-full h-full bg-center bg-cover" style="#}
+    {#            background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80');#}
+    {#          ">#}
+    {#                <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>#}
+    {#            </div>#}
+    {#            <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"#}
+    {#                 style="transform: translateZ(0px)">#}
+    {#                <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg"#}
+    {#                     preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">#}
+    {#                    <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>#}
+    {#                </svg>#}
+    {#            </div>#}
+    {#        </section>#}
+    {#        <section class="relative py-16 ">#}
+    {#            <div class="container mx-auto px-4">#}
+    {#                <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">#}
+    {#                    <div class="px-6">#}
+    {#                        <div class="flex flex-wrap justify-center">#}
+    {#                            <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">#}
+    {#                                <div class="relative ">#}
+    {#                                    <div class="avatar">#}
+    {#                                        <div class="ring-primary  ring-offset-base-100 w-40 rounded-full ring ring-offset-2">#}
+    {#                                            <img src="{{ user.profile.avatar.url }}"/>#}
+    {#                                        </div>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {##}
+    {#                        </div>#}
+    {##}
+    {#                        <div class="text-center mt-12">#}
+    {##}
+    {#                            <h3 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">#}
+    {#                                {{ user.first_name }} {{ user.last_name }}#}
+    {#                            </h3>#}
+    {#                            <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">#}
+    {#                                <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>#}
+    {#                                {{ perfil.ciudad }}#}
+    {#                            </div>#}
+    {#                            <div class="flex flex-col justify-center items-center w-full  px-4 lg:order-1 ">#}
+    {#                                <div class="flex justify-center py-4 lg:pt-4 pt-8">#}
+    {#                                    <div class="mr-4 p-3 text-center">#}
+    {#                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{ total_cartas }}</span><span#}
+    {#                                            class="text-sm text-blueGray-400">Cartas</span>#}
+    {#                                    </div>#}
+    {#                                    <div class="mr-4 p-3 text-center">#}
+    {#                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{ total_poemas }}</span><span#}
+    {#                                            class="text-sm text-blueGray-400">Poemas</span>#}
+    {#                                    </div>#}
+    {#                                    <div class="lg:mr-4 p-3 text-center">#}
+    {#                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">0</span><span#}
+    {#                                            class="text-sm text-blueGray-400">Dias</span>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                        <div class="mt-10 py-10 border-t border-blueGray-200 text-center">#}
+    {#                            <div class="flex flex-wrap justify-center">#}
+    {#                                <div class="w-full lg:w-9/12 px-4">#}
+    {#                                    <p class="mb-4 text-lg leading-relaxed text-blueGray-700">#}
+    {#                                        {{ perfil.bio }}#}
+    {#                                    </p>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <a href="{% url 'blog:editar_perfil' %}" class="btn btn-primary">Editar</a>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {##}
+    {#                </div>#}
+    {##}
+    {#            </div>#}
+    {##}
+    {#        </section>#}
+    {#    </main>#}
 
-                        </div>
-
-                        <div class="text-center mt-12">
-
-                            <h3 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                                {{ user.first_name }} {{ user.last_name }}
-                            </h3>
-                            <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                                <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                                {{ perfil.ciudad }}
-                            </div>
-                            <div class="flex flex-col justify-center items-center w-full  px-4 lg:order-1 ">
-                                <div class="flex justify-center py-4 lg:pt-4 pt-8">
-                                    <div class="mr-4 p-3 text-center">
-                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{ total_cartas }}</span><span
-                                            class="text-sm text-blueGray-400">Cartas</span>
-                                    </div>
-                                    <div class="mr-4 p-3 text-center">
-                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{ total_poemas }}</span><span
-                                            class="text-sm text-blueGray-400">Poemas</span>
-                                    </div>
-                                    <div class="lg:mr-4 p-3 text-center">
-                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">0</span><span
-                                            class="text-sm text-blueGray-400">Dias</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
-                            <div class="flex flex-wrap justify-center">
-                                <div class="w-full lg:w-9/12 px-4">
-                                    <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                                        {{ perfil.bio }}
-                                    </p>
-                                </div>
-                            </div>
-                            <a href="{% url 'blog:editar_perfil' %}" class="btn btn-primary">Editar</a>
+    <main class="container mx-auto h-screen fondo bg-cover">
+        <div class="relative max-w-md mx-auto md:max-w-2xl  min-w-0 break-words  mb-6 bg-base-100 w-full shadow-xl rounded-xl mt-16">
+            <div class="px-6">
+                <div class="flex flex-wrap justify-center">
+                    <div class="w-full flex justify-center">
+                        <div class="relative">
+                            <img src="https://github.com/creativetimofficial/soft-ui-dashboard-tailwind/blob/main/build/assets/img/team-2.jpg?raw=true"
+                                 class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                                 alt=""/>
                         </div>
                     </div>
+                    <div class="w-full text-center mt-20">
+                        <div class="flex justify-center lg:pt-4 pt-8 pb-0">
+                            <div class="p-3 text-center">
+                                <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">3,360</span>
+                                <span class="text-sm text-slate-400">Photos</span>
+                            </div>
+                            <div class="p-3 text-center">
+                                <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">2,454</span>
+                                <span class="text-sm text-slate-400">Followers</span>
+                            </div>
 
+                            <div class="p-3 text-center">
+                                <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">564</span>
+                                <span class="text-sm text-slate-400">Following</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
+                <div class="text-center mt-2">
+                    <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">Mike Thompson</h3>
+                    <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+                        <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>Paris, France
+                    </div>
+                </div>
+                <div class="mt-6 py-6 border-t border-slate-200 text-center">
+                    <div class="flex flex-wrap justify-center">
+                        <div class="w-full px-4">
+                            <p class="font-light leading-relaxed text-slate-600 mb-4">An artist of considerable range,
+                                Mike
+                                is the name taken by Melbourne-raised, Brooklyn-based Nick Murphy writes, performs and
+                                records all of his own music, giving it a warm.</p>
+                            <a href="javascript:;" class="font-normal text-slate-700 hover:text-slate-400">Follow
+                                Account</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-        </section>
+        </div>
     </main>
+
+
+
     {% include 'base/footer.html' %}
 {% endblock %}
 
 {% block js %}
-    <script>
-        // target element that will be dismissed
-        const $targetEl = document.getElementById('targetElement');
 
-        // optional trigger element
-        const $triggerEl = document.getElementById('triggerElement');
-
-        // options object
-        const options = {
-            transition: 'transition-opacity',
-            duration: 1000,
-            timing: 'ease-out',
-
-            // callback functions
-            onHide: (context, targetEl) => {
-                console.log('element has been dismissed')
-                console.log(targetEl)
-            }
-        };
-
-        // instance options object
-        const instanceOptions = {
-            id: 'targetElement',
-            override: true
-        };
-        import {Dismiss} from 'flowbite';
-
-        /*
-        * $targetEl (required)
-        * $triggerEl (optional)
-        * options (optional)
-        * instanceOptions (optional)
-        */
-        const dismiss = new Dismiss($targetEl, $triggerEl, options, instanceOptions);
-        // hide the target element
-        dismiss.hide();
-
-    </script>
 {% endblock %}
